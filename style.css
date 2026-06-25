@@ -1,0 +1,8 @@
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:#222}
+.navbar{position:sticky;top:0;background:#fff;border-bottom:1px solid #ddd}
+.container{max-width:1200px;margin:auto;padding:16px;display:flex;justify-content:space-between;align-items:center}
+.logo{height:56px}
+nav a{text-decoration:none;color:#222;margin-left:24px}
+.hero{height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+background:linear-gradient(135deg,#0f2747,#1f4d7a);color:white;text-align:center}
+footer{padding:30px;text-align:center;background:#111;color:#eee}
