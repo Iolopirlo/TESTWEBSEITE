@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Müller Finance | Buchhaltung · Personal · Steuern</title>
+  <meta name="description" content="Müller Finance unterstützt Einzelunternehmen und KMU in Buchhaltung, Personalwesen und Steuern." />
+  <style>
+    :root {
+      --paper: #f6f1e8;
+      --paper-2: #fbf8f2;
+      --ink: #18212b;
+      --muted: #68727d;
+      --gold: #a77a35;
+      --gold-soft: #d9c19a;
+      --line: #ddd0bc;
+      --white: #ffffff;
+      --navy: #1c2a39;
+      --shadow: 0 16px 38px rgba(24, 33, 43, 0.10);
+      --radius: 6px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    p, a, li, input, textarea, button {
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(246, 241, 232, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 245px;
+    }
+
+    .brand svg {
+      width: 58px;
+      height: 58px;
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      line-height: 1.1;
+    }
+
+    .brand-title {
+      font-size: 1.28rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--navy);
+      text-transform: uppercase;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .brand-subtitle {
+      margin-top: 4px;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #44515f;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    nav a {
+      padding: 8px 0;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .nav-cta {
+      border: 1px solid var(--gold);
+      color: var(--navy);
+      padding: 10px 18px;
+      border-radius: 0;
+    }
+
+    .nav-cta:hover {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    .hero {
+      position: relative;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(246,241,232,1) 0%, rgba(246,241,232,.92) 48%, rgba(246,241,232,.78) 100%),
+        radial-gradient(circle at 85% 15%, rgba(167,122,53,.16), transparent 34%);
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 96px 24px 92px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 58px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      margin-bottom: 18px;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 5vw, 4.9rem);
+      line-height: 1.02;
+      margin-bottom: 24px;
+      letter-spacing: -0.04em;
+      font-weight: 500;
+      color: var(--navy);
+    }
+
+    .lead {
+      max-width: 650px;
+      color: #4c5966;
+      font-size: 1.13rem;
+      margin-bottom: 34px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      background: #111923;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      border-color: var(--gold);
+      color: var(--navy);
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(167, 122, 53, 0.10);
+      transform: translateY(-1px);
+    }
+
+    .credential-card {
+      background: rgba(255,255,255,0.74);
+      border: 1px solid var(--line);
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .credential-card .small-logo {
+      width: 86px;
+      height: 86px;
+      margin-bottom: 22px;
+    }
+
+    .credential-card h2 {
+      font-size: 1.58rem;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 18px;
+    }
+
+    .check-list {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+
+    .check-list li {
+      display: flex;
+      gap: 12px;
+      color: var(--muted);
+    }
+
+    .check-list li::before {
+      content: "—";
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    section {
+      padding: 82px 24px;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin-bottom: 40px;
+    }
+
+    .section-label {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.76rem;
+      font-weight: 700;
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2.1rem, 3.6vw, 3.35rem);
+      line-height: 1.08;
+      margin-bottom: 16px;
+      letter-spacing: -0.035em;
+      font-weight: 500;
+      color: var(--navy);
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: 0 12px 30px rgba(24, 33, 43, 0.06);
+    }
+
+    .service-card {
+      padding: 36px 30px;
+      min-height: 285px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #fbf8f2);
+    }
+
+    .service-number {
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--gold);
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      margin-bottom: 18px;
+    }
+
+    .service-card h3 {
+      font-size: 1.55rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: var(--navy);
+    }
+
+    .service-card p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .service-card ul {
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .about {
+      background: var(--paper-2);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 52px;
+      align-items: center;
+    }
+
+    .quote-box {
+      background: var(--navy);
+      color: var(--white);
+      padding: 42px;
+      box-shadow: var(--shadow);
+      border-left: 6px solid var(--gold);
+    }
+
+    .quote-box strong {
+      display: block;
+      font-size: 2.05rem;
+      line-height: 1.16;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .quote-box p {
+      color: #dce4ea;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 1.05rem;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .step {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 28px 24px;
+      background: var(--white);
+    }
+
+    .step-number {
+      color: var(--gold);
+      font-weight: 800;
+      margin-bottom: 14px;
+      letter-spacing: 0.12em;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .step h3 {
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 10px;
+      font-size: 1.32rem;
+    }
+
+    .step p {
+      color: var(--muted);
+    }
+
+    .contact {
+      background: linear-gradient(180deg, var(--paper), #eee3d2);
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.86);
+      border: 1px solid var(--line);
+      padding: 42px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 38px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-card h3 {
+      font-weight: 500;
+      color: var(--navy);
+      font-size: 1.7rem;
+      margin-bottom: 14px;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      font: inherit;
+      background: var(--paper-2);
+      color: var(--ink);
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    footer {
+      background: var(--navy);
+      color: #d7dee6;
+      padding: 54px 24px 28px;
+      border-top: 4px solid var(--gold);
+    }
+
+    .footer-grid {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: 28px;
+    }
+
+    footer h3, footer h4 {
+      color: var(--white);
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
+    footer p, footer a {
+      color: #b9c3ce;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    footer a:hover {
+      color: var(--gold-soft);
+    }
+
+    .footer-bottom {
+      max-width: 1180px;
+      margin: 36px auto 0;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      color: #9faab5;
+      font-size: 0.9rem;
+    }
+
+    .legal-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(24,33,43,0.62);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .legal-modal.active {
+      display: flex;
+    }
+
+    .legal-content {
+      max-width: 760px;
+      max-height: 80vh;
+      overflow: auto;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .legal-content h2 {
+      color: var(--navy);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .legal-content p {
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .hero-inner,
+      .about-grid,
+      .contact-card,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .services,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-inner {
+        padding-top: 58px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="Müller Finance Startseite">
+        <svg viewBox="0 0 120 120" role="img" aria-label="Müller Finance Logo">
+          <defs>
+            <linearGradient id="goldGradient" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#d8bc83"/>
+              <stop offset="100%" stop-color="#8e672d"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="55" fill="none" stroke="#a77a35" stroke-width="3"/>
+          <circle cx="60" cy="60" r="44" fill="none" stroke="#d9c19a" stroke-width="1.5"/>
+          <path d="M30 72 L43 42 L60 72 L77 42 L90 72" fill="none" stroke="url(#goldGradient)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M35 82 H85" stroke="#1c2a39" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-title">Müller Finance</span>
+          <span class="brand-subtitle">Buchhaltung | Personal | Steuern</span>
+        </span>
+      </a>
+
+      <nav aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="#dienstleistungen">Dienstleistungen</a></li>
+          <li><a href="#ueber-uns">Über uns</a></li>
+          <li><a href="#ablauf">Ablauf</a></li>
+          <li><a class="nav-cta" href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">Einzelfirma im Finanzbereich</div>
+          <h1>Diskrete Unterstützung für Buchhaltung, Personal und Steuern.</h1>
+          <p class="lead">
+            Müller Finance begleitet Einzelunternehmen, Selbstständige und KMU mit verlässlicher
+            Finanz- und Administrationsunterstützung – strukturiert, persönlich und professionell.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#kontakt">Erstgespräch anfragen</a>
+            <a class="btn btn-secondary" href="#dienstleistungen">Leistungen ansehen</a>
+          </div>
+        </div>
+
+        <aside class="credential-card">
+          <svg class="small-logo" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="55" fill="none" stroke="#a77a35" stroke-width="3"/>
+            <circle cx="60" cy="60" r="44" fill="none" stroke="#d9c19a" stroke-width="1.5"/>
+            <path d="M30 72 L43 42 L60 72 L77 42 L90 72" fill="none" stroke="#a77a35" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M35 82 H85" stroke="#1c2a39" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <h2>Verlässlichkeit, Übersicht und klare Abläufe.</h2>
+          <ul class="check-list">
+            <li>Laufende Buchhaltung und Jahresabschluss-Vorbereitung</li>
+            <li>Lohn- und Personaladministration</li>
+            <li>Steuerunterlagen, Fristen und Struktur</li>
+            <li>Persönliche Betreuung ohne unnötige Komplexität</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="dienstleistungen">
+      <div class="container">
+        <div class="section-title">
+          <div class="section-label">Leistungen</div>
+          <h2>Finanzielle und administrative Unterstützung aus einer Hand.</h2>
+          <p>Die Leistungen können einzeln oder als laufende Betreuung kombiniert werden.</p>
+        </div>
+
+        <div class="services">
+          <article class="service-card">
+            <div class="service-number">01</div>
+            <h3>Buchhaltung</h3>
+            <p>Saubere und nachvollziehbare Finanzbuchhaltung als Grundlage für Entscheidungen und Abschlüsse.</p>
+            <ul>
+              <li>Laufende Buchführung</li>
+              <li>Debitoren und Kreditoren</li>
+              <li>Jahresabschluss-Vorbereitung</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-number">02</div>
+            <h3>Personalwesen</h3>
+            <p>Strukturierte Unterstützung bei Lohn, Sozialversicherungen und wiederkehrenden Personalprozessen.</p>
+            <ul>
+              <li>Lohnadministration</li>
+              <li>Sozialversicherungen</li>
+              <li>Ein- und Austritte</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-number">03</div>
+            <h3>Steuern</h3>
+            <p>Ordnung und Übersicht bei Steuerunterlagen, Fristen und vorbereitenden Abklärungen.</p>
+            <ul>
+              <li>Steuererklärungen</li>
+              <li>Unterlagenaufbereitung</li>
+              <li>Fristenkontrolle</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ueber-uns" class="about">
+      <div class="container about-grid">
+        <div class="quote-box">
+          <strong>Seriöse Finanzarbeit beginnt mit Klarheit.</strong>
+          <p>Wir schaffen Ordnung in Zahlen, Dokumenten und administrativen Abläufen.</p>
+        </div>
+
+        <div class="about-text">
+          <div class="section-title">
+            <div class="section-label">Über Müller Finance</div>
+            <h2>Persönlich, sorgfältig und lösungsorientiert.</h2>
+          </div>
+          <p>
+            Müller Finance steht für eine ruhige, verlässliche und transparente Arbeitsweise.
+            Ziel ist es, Unternehmerinnen und Unternehmer im Alltag zu entlasten und gleichzeitig
+            eine klare finanzielle Übersicht zu schaffen.
+          </p>
+          <p>
+            Ob laufende Buchhaltung, Personaladministration oder Steuerthemen:
+            Die Zusammenarbeit ist pragmatisch, verständlich und auf langfristige Ordnung ausgelegt.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ablauf">
+      <div class="container">
+        <div class="section-title">
+          <div class="section-label">Zusammenarbeit</div>
+          <h2>Ein klarer Ablauf für eine professionelle Betreuung.</h2>
+          <p>Vom ersten Gespräch bis zur laufenden Unterstützung bleiben Umfang, Zuständigkeiten und Fristen transparent.</p>
+        </div>
+
+        <div class="process-grid">
+          <div class="step">
+            <div class="step-number">01</div>
+            <h3>Erstkontakt</h3>
+            <p>Anliegen, Ausgangslage und gewünschter Umfang werden kurz geklärt.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">02</div>
+            <h3>Analyse</h3>
+            <p>Bestehende Unterlagen, Prozesse und Fristen werden strukturiert betrachtet.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">03</div>
+            <h3>Umsetzung</h3>
+            <p>Die vereinbarten Aufgaben werden sorgfältig und nachvollziehbar ausgeführt.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">04</div>
+            <h3>Übersicht</h3>
+            <p>Regelmässige Informationen sorgen für Transparenz und Planungssicherheit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt" class="contact">
+      <div class="container">
+        <div class="section-title">
+          <div class="section-label">Kontakt</div>
+          <h2>Unverbindlich anfragen.</h2>
+          <p>Für ein erstes Gespräch oder eine konkrete Anfrage zu Buchhaltung, Personalwesen oder Steuern.</p>
+        </div>
+
+        <div class="contact-card">
+          <div>
+            <h3>Müller Finance</h3>
+            <p><strong>E-Mail:</strong> info@mueller-finance.ch</p>
+            <p><strong>Telefon:</strong> +41 79 000 00 00</p>
+            <p><strong>Adresse:</strong><br>Musterstrasse 1<br>8000 Zürich<br>Schweiz</p>
+            <p>Diese Angaben sind Platzhalter und können direkt in der HTML-Datei angepasst werden.</p>
+          </div>
+
+          <form onsubmit="event.preventDefault(); alert('Danke für deine Nachricht. In dieser lokalen Demo wird noch nichts versendet.');">
+            <input type="text" name="name" placeholder="Name" required />
+            <input type="email" name="email" placeholder="E-Mail" required />
+            <textarea name="message" placeholder="Nachricht" required></textarea>
+            <button class="btn btn-primary" type="submit">Nachricht senden</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>Müller Finance</h3>
+        <p>Buchhaltung | Personal | Steuern</p>
+        <p>Professionelle Unterstützung für Einzelunternehmen und KMU.</p>
+      </div>
+
+      <div>
+        <h4>Kontakt</h4>
+        <p>info@mueller-finance.ch</p>
+        <p>+41 79 000 00 00</p>
+      </div>
+
+      <div>
+        <h4>Adresse</h4>
+        <p>Musterstrasse 1</p>
+        <p>8000 Zürich</p>
+        <p>Schweiz</p>
+      </div>
+
+      <div>
+        <h4>Rechtliches</h4>
+        <a href="#impressum" onclick="openLegal('Impressum')">Impressum</a>
+        <a href="#datenschutz" onclick="openLegal('Datenschutz')">Datenschutz</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © <span id="year"></span> Müller Finance. Alle Rechte vorbehalten.
+    </div>
+  </footer>
+
+  <div class="legal-modal" id="legalModal" onclick="closeLegal(event)">
+    <div class="legal-content">
+      <h2 id="legalTitle">Impressum</h2>
+      <p><strong>Müller Finance</strong><br>Musterstrasse 1<br>8000 Zürich<br>Schweiz</p>
+      <p><strong>Kontakt:</strong> info@mueller-finance.ch · +41 79 000 00 00</p>
+      <p>
+        Dies ist ein Platzhaltertext. Für die finale Veröffentlichung sollten Impressum und Datenschutz
+        an die effektiven Unternehmensdaten, eingesetzten Tools und rechtlichen Anforderungen angepasst werden.
+      </p>
+      <button class="btn btn-primary" onclick="document.getElementById('legalModal').classList.remove('active')">Schliessen</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function openLegal(type) {
+      document.getElementById("legalTitle").textContent = type;
+      document.getElementById("legalModal").classList.add("active");
+    }
+
+    function closeLegal(event) {
+      if (event.target.id === "legalModal") {
+        document.getElementById("legalModal").classList.remove("active");
+      }
+    }
+  </script>
+</body>
+</html>
